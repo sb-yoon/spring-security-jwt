@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="kr.unlike.spring.dao.AccountDao">
+
+    <resultMap type="Account" id="Account">
+        <id property="id" column="id" javaType="Long"></id>
+        <result property="email" column="email" javaType="String"></result>
+        <result property="pwd" column="pwd" javaType="String"></result>
+        <result property="nickname" column="nickname" javaType="String"></result>
+        <result property="name" column="name" javaType="String"></result>
+        <result property="gender" column="gender" javaType="String"></result>
+        <result property="role" column="role" javaType="String"></result>
+        <result property="regDate" column="reg_date" javaType="Date"></result>
+    </resultMap>
+
+    <select id="selectOne" resultMap="Account">
+        SELECT
+            id,
+            email,
+            pwd,
+            nickname,
+            name,
+            gender,
+            role,
+            reg_date
+        FROM tbl_account
+        WHERE id = #{id}
+    </select>
+
+    <select id="selectOneByEmail" resultMap="Account">
+        SELECT
+            id,
+            email,
+            pwd,
+            nickname,
+            name,
+            gender,
+            role,
+            reg_date
+        FROM tbl_account
+        WHERE email = #{email}
+    </select>
+
+    <insert id="register">
+        INSERT INTO tbl_account (email, pwd, nickname, name, gender, reg_date, mod_date)
+        VALUES (#{email}, #{pwd}, #{nickname}, #{name}, #{gender}, now(), now());
+    </insert>
+</mapper>
